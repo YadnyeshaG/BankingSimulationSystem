@@ -1,0 +1,63 @@
+﻿@model List<BankingSimulationSystemMVC.Models.Transaction>
+
+@{
+    ViewData["Title"] = "Transaction History";
+}
+
+<h2 class="mb-4">Transaction History</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+@if (!string.IsNullOrEmpty(ViewBag.Error))
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+
+<table class="table table-bordered table-hover shadow-sm rounded">
+    <thead class="table-dark">
+        <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Amount</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var tx in Model)
+            {
+                <tr>
+                    <td>@tx.TransactionDate.ToString("dd-MMM-yyyy HH:mm")</td>
+                    <td>
+                        @if (tx.Type == BankingSimulationSystemMVC.Models.TransactionType.Deposit)
+                        {
+                            <span class="badge bg-success">Deposit</span>
+                        }
+                        else if (tx.Type == BankingSimulationSystemMVC.Models.TransactionType.Withdraw)
+                        {
+                            <span class="badge bg-danger">Withdraw</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">Unknown</span>
+                        }
+                    </td>
+                    <td>@tx.Amount.ToString("C")</td>
+                    <td>@tx.Description</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4" class="text-center text-muted">No transactions found.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Index" class="btn btn-secondary mt-3">Back to Dashboard</a>

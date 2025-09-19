@@ -1,0 +1,63 @@
+﻿@model BankingSimulationSystemMVC.Models.RegisterRequest
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="container mt-5" style="max-width: 500px;">
+    <div class="card shadow p-4 rounded-4">
+        <h2 class="text-center mb-4 fw-bold">Create an Account</h2>
+
+        <form asp-action="Register" method="post">
+
+
+            <div class="mb-3">
+            <label asp-for="FirstName" class="form-label fw-semibold"></label>
+                <input asp-for="FirstName" type="text" class="form-control" placeholder="Enter email" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+            <label asp-for="LastName" class="form-label fw-semibold"></label>
+                <input asp-for="LastName" type="text"  class="form-control" placeholder="Enter email" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Username" class="form-label fw-semibold"></label>
+                <input asp-for="Username" type="email" class="form-control" placeholder="Choose username" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label fw-semibold"></label>
+                <input asp-for="Password" type="password" class="form-control" placeholder="Enter password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ConfirmPassword" class="form-label fw-semibold"></label>
+                <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Confirm password" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100 rounded-3 fw-semibold">
+                Register
+            </button>
+
+            <div class="text-center mt-3">
+                <a asp-action="Login" class="text-decoration-none">Back to Login</a>
+            </div>
+
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger mt-3">
+                    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                    {
+                        <div>@error.ErrorMessage</div>
+                    }
+                </div>
+            }
+        </form>
+    </div>
+</div>

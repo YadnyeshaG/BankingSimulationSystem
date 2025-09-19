@@ -1,0 +1,27 @@
+﻿@model BankingSimulationSystemMVC.Models.Account
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h2 class="mb-4">Welcome to Your Account</h2>
+
+@if (!string.IsNullOrEmpty(ViewBag.Error))
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+else
+{
+    <div class="card p-3 shadow">
+        <h4 class="mb-3">Welcome, @Model.FirstName @Model.LastName </h4>
+        <h4>Account Number: @Model?.AccountNumber</h4>
+        <h4>Current Balance: <span class="text-success fw-bold">@Model?.Balance.ToString("C")</span></h4>
+    </div>
+
+   
+
+    <div class="mt-4">
+        <a asp-action="Deposit" class="btn btn-success me-2">Deposit</a>
+        <a asp-action="Withdraw" class="btn btn-danger me-2">Withdraw</a>
+    </div>
+}
